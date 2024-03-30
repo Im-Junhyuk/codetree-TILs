@@ -214,7 +214,7 @@ public class Main {
 	    		pre[dstFir] = srcLat;
 	    		post[srcLat] = dstFir;
     		}
-    		
+    		belts[src].tail.next.next = belts[dst].head.next;
     		belts[dst].head.next = belts[src].head.next;
     		if(belts[dst].size == 0) {
     			belts[dst].tail.next = belts[src].tail.next;
@@ -222,7 +222,7 @@ public class Main {
     			
     		}
     		
-    		belts[src].tail.next.next = belts[dst].head.next;
+    		
     		
     		
     		belts[src].head.next = belts[src].tail;
@@ -284,7 +284,7 @@ public class Main {
     }
     
     static void display() {
-    	
+//    	
 //    	System.out.println("turn " + q);
 //    	
 //    	for(int n = 1; n < N+1; n++) {
