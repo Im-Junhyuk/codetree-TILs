@@ -38,7 +38,7 @@ public class Main {
 			people[m] = new Person(Integer.parseInt(st.nextToken())-1,
 					Integer.parseInt(st.nextToken())-1);
 		}
-		
+		display();
 		remain = M;
 		int terminateTime = 0;
 		int timeLimit = Integer.MAX_VALUE;
@@ -90,7 +90,7 @@ public class Main {
 					if(people[p].x == people[p].destx && people[p].y == people[p].desty) {
 						people[p].playable = false;
 //						System.out.println("$$$$$escape");
-						map[people[p].x][people[p].y] = true;
+//						map[people[p].x][people[p].y] = true;
 						blockQueue.add(new Point(people[p].x, people[p].y));
 						remain--;
 					}
