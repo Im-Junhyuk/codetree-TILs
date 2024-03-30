@@ -58,10 +58,14 @@ public class Main {
 		void addLast(int num){
 			
 			Node newNode = new Node(num);
+
+//			newNode.next = tail;
+			if(size > 0) {
+				post[tail.next.present] = num;
+				pre[num] = tail.next.present;
+			}
 			tail.next.next = newNode;
 			tail.next = newNode;
-//			newNode.next = tail;
-			
 			if(size == 0) {
 				head.next = newNode;
 			}
@@ -70,6 +74,7 @@ public class Main {
 		}
 		
 		int pollFist() {
+//			System.out.println("dddsize " + size);
 			int firValue = head.next.present;
 			post[firValue] = -1;
 			head.next = head.next.next;
@@ -119,7 +124,7 @@ public class Main {
         	int dst;
         	int p_num;
         	int b_num;
-        	
+//        	System.out.println("inst " + inst);
         	switch (inst) {
 			case 100: 
 				init(st);
@@ -128,6 +133,7 @@ public class Main {
 			case 200: 
 				src = Integer.parseInt(st.nextToken());
 				dst = Integer.parseInt(st.nextToken());
+//				System.out.println("src dst " + src + " " + dst);
 				
 				moveAll(src, dst);
 				
@@ -135,7 +141,9 @@ public class Main {
 			case 300: 
 				src = Integer.parseInt(st.nextToken());
 				dst = Integer.parseInt(st.nextToken());
-				
+//				System.out.println("src dst " + src + " " + dst);
+//				belts[src].print();
+//				belts[dst].print();
 				moveFirst(src, dst);
 				
 				break;
@@ -195,14 +203,30 @@ public class Main {
     
     static void moveAll(int src, int dst) {
     	if(belts[src].size != 0) {
-    		int dstFir = belts[dst].head.next.present;
-    		int srcLat = belts[src].tail.next.present;
+//    		if(belts[dst].size == 0) {
+//    			
+//    		}
+//    		
+    		if(belts[dst].size != 0) {
+	    		int dstFir = belts[dst].head.next.present;
+	    		int srcLat = belts[src].tail.next.present;
+	    		
+	    		pre[dstFir] = srcLat;
+	    		post[srcLat] = dstFir;
+    		}
     		
-    		pre[dstFir] = srcLat;
-    		post[srcLat] = dstFir;
+    		belts[dst].head.next = belts[src].head.next;
+    		if(belts[dst].size == 0) {
+    			belts[dst].tail.next = belts[src].tail.next;
+    		} else {
+    			
+    		}
     		
     		belts[src].tail.next.next = belts[dst].head.next;
-    		belts[dst].head.next = belts[src].head.next;
+    		
+    		
+    		belts[src].head.next = belts[src].tail;
+    		belts[src].tail.next = belts[dst].head;
     		
     		belts[dst].size += belts[src].size;
     		belts[src].size = 0;
