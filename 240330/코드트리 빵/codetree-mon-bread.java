@@ -122,6 +122,9 @@ public class Main {
 					if(minDist < dist) {
 						break;
 					}
+					if(visited[x][y])
+						continue;
+					visited[x][y] = true;
 					
 					if(camp[x][y] == 1) {
 						minDist = dist;
