@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -163,7 +164,7 @@ public class Main {
 			int b_num;
 //			System.out.println("====================");
 //			System.out.println("turn " + q);
-			
+//			
 			switch (inst) {
 			case 100:
 				
@@ -265,9 +266,16 @@ public class Main {
 	static void divide(int src, int dst) {
 		
 		int num = belts[src].size/2;
+		Stack<Integer> stack = new Stack<>();
+		
 		for(int i = 0; i < num; i++) {
-			belts[dst].addFirst(belts[src].pollFirst());
+			stack.add(belts[src].pollFirst());
 		}
+		
+		while(!stack.isEmpty()) {
+			belts[dst].addFirst(stack.pop());
+		}
+		
 		System.out.println(belts[dst].size);
 	}
 	static void getBeltInfo(int b_num) {
