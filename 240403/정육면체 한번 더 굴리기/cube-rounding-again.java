@@ -54,8 +54,8 @@ public class Main {
 			}
 		}
 		
-//		for(int i = 1; i < N+1; i++) {
-//			for(int j = 1; j < N+1; j++) {
+//		for(int i = 0; i < N+2; i++) {
+//			for(int j = 0; j < N+2; j++) {
 //				System.out.print(scoreMap[i][j] + " ");
 //			}System.out.println();
 //		}
@@ -70,24 +70,19 @@ public class Main {
 		dice[5] = 3;	// right
 		
 		int x = 1;
-		int y = 2;
+		int y = 1;
 		
 		int totalScore = 0;
 		
 		for(int m = 0; m < M; m++) {
-			
+//			System.out.println(x + " " + y);
 			// calculation
-			totalScore += scoreMap[x][y];
+			
 //			System.out.println(scoreMap[x][y]);
 			// next position
 			
 			
-			if(dice[0] > map[x][y]) {
-				direction = (direction+3)%4;
-				
-			} else if(dice[0] < map[x][y]) {
-				direction = (direction+1)%4;
-			}
+
 			
 			x += dx[direction];
 			y += dy[direction];
@@ -140,6 +135,13 @@ public class Main {
 //				dice[4] = 2;	//front
 //				dice[5] = 3;	// right
 			
+			}
+			totalScore += scoreMap[x][y];	
+			if(dice[0] > map[x][y]) {
+				direction = (direction+1)%4;
+				
+			} else if(dice[0] < map[x][y]) {
+				direction = (direction+3)%4;
 			}
 		}
 		System.out.println(totalScore);
