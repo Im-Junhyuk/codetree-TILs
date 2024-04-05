@@ -156,10 +156,10 @@ public class Main {
 		
 		int x = sulae.x;
 		int y = sulae.y;
-		// if(x == 0 && y == 0)
-		// 	displayMap();
-		// if(x == N/2 && y == N/2)
-		// 	displayMap();
+		if(x == 0 && y == 0)
+			displayMap();
+		if(x == N/2 && y == N/2)
+			displayMap();
 		
 		sulaeMap[x][y] = !sulaeMap[x][y];
 		
@@ -226,18 +226,18 @@ public class Main {
 	}
 	
 	static void display() {
-		// System.out.println("turn " + k);
-		// System.out.println("sulae " + sulae.x + " " + sulae.y);
-		// for(int m = 0; m < M; m++) {
-		// 	System.out.println(runners[m].toString());
-		// }
-		// System.out.println();
-		// System.out.println();
+		System.out.println("turn " + k);
+		System.out.println("sulae " + sulae.x + " " + sulae.y);
+		for(int m = 0; m < M; m++) {
+			System.out.println(runners[m].toString());
+		}
+		System.out.println();
+		System.out.println();
 		
-		// displayMap();
-		// System.out.println("runnerMove " + runnerMoveCnt);
-		// System.out.println("score " + score);
-		// System.out.println("------------");
+		displayMap();
+		System.out.println("runnerMove " + runnerMoveCnt);
+		System.out.println("score " + score);
+		System.out.println("------------");
 	}
 	static void displayMap() {
 		for(int i = 0; i < N; i++) {
