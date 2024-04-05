@@ -25,7 +25,7 @@ public class Main {
 	static boolean forward = true;
 	
 	static int score = 0;
-	
+	static int runnerMoveCnt;
 	static class Player{
 		int x;
 		int y;
@@ -86,6 +86,7 @@ public class Main {
 			treeMap[x][y] = true;
 		}
 		
+		sulaeMap[N/2][N/2] = true;
 		for(k = 1; k <= K; k++) {
 			play();
 		}
@@ -94,10 +95,12 @@ public class Main {
 	}
 	
 	static void play() {
-		
+		runnerMoveCnt = 0;
 		for(int m = 0; m < M; m++) {
-			if(runners[m].alive && inRange(m))
+			if(runners[m].alive && inRange(m)) {
 				runnerMove(m);
+				runnerMoveCnt++;
+			}
 		}
 		
 		sulaeMove();
@@ -123,33 +126,51 @@ public class Main {
 		int nx = x + dx[d];
 		int ny = y + dy[d];
 		
-		if(nx < 0 || nx >= N || ny < 0 || ny >= N) {
+		if(nx >= 0 && nx < N && ny >= 0 && ny < N) {
+//			nx = x + dx[d];
+//			ny = y + dy[d];
+			if(nx != sulae.x || ny != sulae.y) {
+				runnerMap[x][y].remove(rNum);
+				runnerMap[nx][ny].add(rNum);
+				cur.x = nx;
+				cur.y = ny;
+			}
+		} else {
 			d = (d+2)%4;
+			
 			nx = x + dx[d];
 			ny = y + dy[d];
+			if(nx != sulae.x || ny != sulae.y) {
+				runnerMap[x][y].remove(rNum);
+				runnerMap[nx][ny].add(rNum);
+				cur.x = nx;
+				cur.y = ny;
+			}
 		}
 		
-		if(sulae.x == nx && sulae.y == y)
-			return;
-		
-		runnerMap[x][y].remove(rNum);
-		runnerMap[nx][ny].add(rNum);
-		cur.x = nx;
-		cur.y = ny;
+
 	}
 	
 	static void sulaeMove() {
 
+		
 		int x = sulae.x;
 		int y = sulae.y;
+		// if(x == 0 && y == 0)
+		// 	displayMap();
+		// if(x == N/2 && y == N/2)
+		// 	displayMap();
+		
 		sulaeMap[x][y] = !sulaeMap[x][y];
 		
 		if(sulae.x == N/2 && sulae.y == N/2) {
+			sulaeMap[x][y] = !sulaeMap[x][y];
 			sulae.d = 0;
 			forward = true;
 		}
 		
 		if(sulae.x == 0 && sulae.y == 0) {
+			sulaeMap[x][y] = !sulaeMap[x][y];
 			sulae.d = 2;
 			forward = false;
 		}
@@ -169,11 +190,11 @@ public class Main {
 			int nx = sulae.x + dx[sulae.d];
 			int ny = sulae.y + dy[sulae.d];
 			
-			if(nx < 0 || nx >= N || ny < 0 || ny >= N)
+			if(nx < 0 || nx >= N || ny < 0 || ny >= N || sulaeMap[nx][ny] == false)
 				sulae.d = (sulae.d+3)%4;
 		}
 		
-		sulaeMap[sulae.x][sulae.y] = !sulaeMap[sulae.x][sulae.y];
+//		sulaeMap[sulae.x][sulae.y] = !sulaeMap[sulae.x][sulae.y];
 	}
 	
 	static void kill() {
@@ -205,11 +226,31 @@ public class Main {
 	}
 	
 	static void display() {
-//		System.out.println("turn " + k);
-//		System.out.println("sulae " + sulae.x + " " + sulae.y);
-//		for(int m = 0; m < M; m++) {
-//			System.out.println(runners[m].toString());
-//		}
-//		System.out.println("score " + score);
+		// System.out.println("turn " + k);
+		// System.out.println("sulae " + sulae.x + " " + sulae.y);
+		// for(int m = 0; m < M; m++) {
+		// 	System.out.println(runners[m].toString());
+		// }
+		// System.out.println();
+		// System.out.println();
+		
+		// displayMap();
+		// System.out.println("runnerMove " + runnerMoveCnt);
+		// System.out.println("score " + score);
+		// System.out.println("------------");
+	}
+	static void displayMap() {
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j< N; j++) {
+				System.out.print(sulaeMap[i][j] + " ");
+			}System.out.println();
+		}
+		System.out.println("runnermap");
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				System.out.print(runnerMap[i][j].size() + " ");
+			}System.out.println();
+		}System.out.println();
+		
 	}
 }
